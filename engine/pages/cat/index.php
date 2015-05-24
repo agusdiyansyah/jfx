@@ -78,21 +78,21 @@ include "../pages-function.php";
 							</thead>
 							<tbody id="isi_table">
 							<?php
-							$sql -> db_Select("taxonomy", "*", "WHERE `c_parent_ID`='0' AND `type`='3'");
+							$sql -> db_Select("taxonomy", "*", "WHERE `t_parent_ID`='0' AND `type`='2'");
 							while ($row = $sql-> db_Fetch()) {
 							    echo "
 							    <tr>
-							        <td>".$row['T_ID']."</td>
-							        <td><a href='#edit' class='text-bold'>".$row['c_name']."</a>
+							        <td>".$row['TID']."</td>
+							        <td><a href='#edit' class='text-bold'>".$row['t_name']."</a>
 							        	<p class=\"actions-hover actions-fade\"><a href='#'>Edit</a> <a href='#'>Quick Edit</a> <a href='#'>View</a> 
-							        	<a href='#modalAnim' data-id=\"".$row['T_ID']."\" class=\"delete-row modal-with-move-anim\">Delete</a>
+							        	<a href='#modalAnim' data-id=\"".$row['TID']."\" class=\"delete-row modal-with-move-anim\">Delete</a>
 							        	</p>
 							        </td>
-							        <td>".$row['slug']."</td>
+							        <td>".$row['t_slug']."</td>
 							        <td class='text-center'>".$row['c_count']."</td>
 							    </tr>
 							    ";
-							    VIEW_CHILD($row['T_ID'], 1);
+							    VIEW_CHILD($row['TID'], 1);
 							  }
 							?>
 							</tbody>
@@ -117,8 +117,8 @@ include "../pages-function.php";
 									<div class="row">
 										<div class="col-md-12 text-right">
 											<form method="post" id="post_id">
-											<input type="hidden" id="T_ID" name="T_ID" value="" />
-											<button id="T_ID" data-id="" class="btn btn-primary modal-confirm">Confirm</button>
+											<input type="hidden" id="TID" name="TID" value="" />
+											<button id="TID" data-id="" class="btn btn-primary modal-confirm">Confirm</button>
 											<button class="btn btn-default modal-dismiss">Cancel</button>
 											</form>
 										</div>
@@ -152,21 +152,21 @@ include "../pages-function.php";
 				<div class="panel-body">
 					<div class="row form-group">
 						<div class="col-md-12">							
-							<label class="control-label" for="c_name">Nama</label>
-							<input name="c_name" id="c_name" placeholder="Nama Kategori" type="text" class="form-control">
+							<label class="control-label" for="t_name">Nama</label>
+							<input name="t_name" id="t_name" placeholder="Nama Kategori" type="text" class="form-control">
 						</div>
 					</div>
 					
 					<div class="row form-group">												
 						<div class="col-md-12">
-							<label class="control-label" for="c_parent_ID">Sub Kategori</label>
-							<select name="c_parent_ID" id="c_parent_ID" class="form-control mb-md">
+							<label class="control-label" for="t_parent_ID">Sub Kategori</label>
+							<select name="t_parent_ID" id="t_parent_ID" class="form-control mb-md">
 								<option value="0">(none)</option>
 								<?php
-					              $sql -> db_Select("taxonomy", "T_ID, c_name", "WHERE `c_parent_ID`='0' AND `type`='3' GROUP BY T_ID");
+					              $sql -> db_Select("taxonomy", "TID, t_name", "WHERE `t_parent_ID`='0' AND `type`='2' GROUP BY TID");
 					              while($row = $sql-> db_Fetch()){
-					                echo "<option value=\"{$row['T_ID']}\">{$row['c_name']}</option>\n";
-					                SELECT_CHILD($row['T_ID'], 1);
+					                echo "<option value=\"{$row['TID']}\">{$row['t_name']}</option>\n";
+					                SELECT_CHILD($row['TID'], 1);
 					              }
 					            ?>
 							</select>
